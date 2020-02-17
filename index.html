@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>YourHelper</title>
+	<script src="./scripts/fetch_latest.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style/style.css">
 	<meta charset="utf-8">
 </head>
@@ -21,12 +23,12 @@
 
 	<div id="content">
 		<form id="search_form">
-			<input type="search" id="SearchField" name="SearchField" placeholder="Введите ваш вопрос..." size="10">
+			<input type="search" id="search_field" name="SearchField" placeholder="Введите ваш вопрос..." size="10">
 			<!--<input type="submit" value="Search">-->
 		</form>
 		<div id="help_section">
 			<p id="help_title">Возможно вы знаете ответ...</p>
-			<div id="QuestionsBlock">
+			<div id="questions_block">
 				<a href="" class="help_item">Как повторить последнее действие?</a>
 				<a href="" class="help_item">Как скопировать объект?</a>
 				<a href="" class="help_item">Как выбрать другой mesh для объекта?</a>

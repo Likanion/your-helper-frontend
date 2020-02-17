@@ -80,7 +80,7 @@ header{
 	/*flex-direction: row;*/
 }
 
-#SearchField{
+#search_field{
 	width: 100%;
 	background: #f8f1ff;
 	border: 1px solid #676a6e;
@@ -107,7 +107,7 @@ header{
 	margin: 25px;
 }
 
-#QuestionsBlock{
+#questions_block{
 	display: flex;
 	flex-direction: column;
 	min-height: 270px;
