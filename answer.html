@@ -141,6 +141,7 @@
                     if (response.question == undefined) {
                         window.location.href = "https://putrik.fun/";
                     }
+                    document.title = response.question;
                     var question = document.getElementById("question");
                     var date_asked = document.getElementById("date_asked");
                     var asked_by = document.getElementById("asked_by");
