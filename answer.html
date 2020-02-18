@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Loading...</title>
+    <style media="screen">
+
+.wrap {
+    background: #FFFFFF;
+}
+.content {
+    background: #f8f1ff;
+    color: #131313;
+    font-family: Montserrat, sans-serif;
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+.content {
+    width: 640px;
+    height: 100%;
+    position: relative;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0);
+    overflow: auto;
+    padding: 0px 20px 20px 20px;
+}
+
+.grid {
+    width: 640px;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto auto auto auto;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+@media screen and (max-width: 640px) {
+    .content {
+        width: 100%;
+    }
+    .grid {
+        width: 100%;
+    }
+}
+
+.header0a { grid-area: 1 / 1 / 2 / 3; }
+.header1a { grid-area: 2 / 1 / 3 / 2; }
+.header1b { grid-area: 2 / 2 / 3 / 3; }
+.content1 { grid-area: 3 / 1 / 4 / 3; }
+
+.header0b { grid-area: 4 / 1 / 5 / 3; }
+.header2a { grid-area: 5 / 1 / 6 / 2; }
+.header2b { grid-area: 5 / 2 / 6 / 3; }
+.content2 { grid-area: 6 / 1 / 7 / 3; }
+
+.header0a,
+.header0b,
+.header1a,
+.header1b,
+.header2a,
+.header2b {
+    text-align: center;
+    font-size: 150%;
+}
+.header1a h3,
+.header1b h3,
+.header2a h3,
+.header2b h3 {
+    margin-top: 0;
+}
+
+.header0a h2,
+.header0b h2 {
+    margin-bottom: 0;
+}
+.content1,
+.content2 {
+    font-size: 145%;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+        <div class="content">
+            <div class="grid">
+                <div class="header0a">
+                    <h2 id="question">...</h2>
+                </div>
+                <!-- <div class="header1a">
+                    <h3 id="date_asked">...</h3>
+                </div> -->
+                <div class="header1b">
+                    <h3 id="asked_by">...</h3>
+                </div>
+                <div class="content1" id="annotation">...</div>
+                <div class="header0b">
+                    <h2 id="answer_title">Ответ</h2>
+                </div>
+                <!-- <div class="header2a">
+                    <h3 id="lastedit">...</h3>
+                </div> -->
+                <div class="header2b">
+                    <h3 id="contributors">...</h3>
+                </div>
+                <div class="content2" id="answer">...</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+    window.addEventListener("load", function() {
+        if(location.hash.length > 2) {
+            onPageOpened(location.hash.substr(1));
+        } else {
+            window.location.href = "https://putrik.fun/";
+        }
+    });
+
+    function onPageOpened(hash) {
+        $( document ).ready(function() {
+            var requestURL="https://api.putrik.fun/get_question?uid=" + hash + "&topic=blender2_8"
+            $.ajax({
+                "url": requestURL,
+                "success": function success(response) {
+                    if (response.question == undefined) {
+                        window.location.href = "https://putrik.fun/";
+                    }
+                    var question = document.getElementById("question");
+                    var date_asked = document.getElementById("date_asked");
+                    var asked_by = document.getElementById("asked_by");
+                    var annotation = document.getElementById("annotation");
+                    var answer_title = document.getElementById("answer_title");
+                    var lastedit = document.getElementById("lastedit");
+                    var contributors = document.getElementById("contributors");
+                    var answer = document.getElementById("answer");
+                    
+                    question.textContent = response.question;
+                    asked_by.textContent = "Вопрос задан " + response.asked_by;
+                    annotation.textContent = response.annotation;
+                    if (response.answer.answer.length === 0) {
+                        answer_title.textContent = "Ответ еще не дан."
+                    } else {
+                        var contributors_string = "Ответ дан " + response.answer.contributors[0];
+                        contributors.textContent = contributors_string;
+                        answer.textContent = response.answer.answer;
+                    }
+                    annotation = response.annotation;
+                    console.log(response);
+                    question.text = response.question;
+                    
+                }
+            });
+        });
+    }
+
+    </script>
+</body>
+</html>
